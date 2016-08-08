@@ -1140,13 +1140,18 @@ void ThreadMapPort2(void* parg)
     struct UPNPDev * devlist = 0;
     char lanaddr[64];
 
+// Added support for miniupnpc 1.9.20150730
 #ifndef UPNPDISCOVER_SUCCESS
     /* miniupnpc 1.5 */
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0);
-#else
+#elif MINIUPNPC_API_VERSION < 14
     /* miniupnpc 1.6 */
     int error = 0;
     devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, &error);
+#else
+    /* miniupnpc 1.9.20150730 */
+    int error = 0;
+    devlist = upnpDiscover(2000, multicastif, minissdpdpath, 0, 0, 2, &error);
 #endif
 
     struct UPNPUrls urls;
@@ -1264,9 +1269,9 @@ void MapPort()
 // The second name should resolve to a list of seed addresses.
 
 static const char *strDNSSeed[][2] = {
-    {"seed1", "seed1.spacecoin.xyz"},
-	{"seed2", "seed2.spacecoin.xyz"},
-	{"seed3", "seed3.spacecoin.xyz"},
+    {"seed1", "seed1.spacecoin.info"},
+	{"seed2", "seed2.spacecoin.info"},
+//	{"seed3", "seed3.spacecoin.xyz"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1348,7 +1353,7 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-
+0xe23a4744, 0xe53a4744
 };
 
 
