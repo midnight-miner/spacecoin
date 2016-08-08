@@ -28,13 +28,20 @@ namespace Checkpoints
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
         ( 0,      hashGenesisBlock )
+        ( 10000,  uint256("0x7350d2b33bcad952b415389c2b6ab4b64be054c4ff0ddadf70abe8c7add06332") )
+        ( 50000,  uint256("0x0000000156e9e8e7092ef0e0315f102ea0a69f654af0a69592c47624aca8edc0") )
+        ( 100000,  uint256("0x00000000b94c91e107453f6fdcec587f19eec2fed173c5f0e4f015c4918ee356") )
+        ( 200000,  uint256("0x1229a15a3a61177853f8e9dcf3ad31dd2f94a0a01d701e8cb55c4a4073baf434") )
+        ( 300000,  uint256("0xa625b89de7dc6bbabdcfcebb7b70455f69ff6da7dad614e8f63b460c051d2362") )
+        ( 400000,  uint256("0xf03647d87a9096a4d1193911a741b16442201933df57015932e1375352f3125f") )
+        ( 472000,  uint256("0xdfd3f06d61f40bce62b6c23e7fd0d164455c860b014f2602598614031f69f02a") )
     ;
 
     // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
         (  0, hashGenesisBlockTestNet )
-		( 20, uint256("0x00000050b7f1b53935bf6322a9385a8bce9f42e5c688e6e852772b1cd4703fe7"))
+
     ;
 
     bool CheckHardened(int nHeight, const uint256& hash)
