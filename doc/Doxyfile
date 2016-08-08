@@ -445,7 +445,7 @@ SORT_MEMBER_DOCS       = YES
 
 SORT_BRIEF_DOCS        = NO
 
-# If the SORT_MEMBERS_CRYPRS_1ST tag is set to YES then doxygen 
+# If the SORT_MEMBERS_CTORS_1ST tag is set to YES then doxygen 
 # will sort the (brief and detailed) documentation of class members so that 
 # constructors and destructors are listed first. If set to NO (the default) 
 # the constructors will appear in the respective orders defined by 
@@ -453,7 +453,7 @@ SORT_BRIEF_DOCS        = NO
 # This tag will be ignored for brief docs if SORT_BRIEF_DOCS is set to NO 
 # and ignored for detailed docs if SORT_MEMBER_DOCS is set to NO.
 
-SORT_MEMBERS_CRYPRS_1ST = NO
+SORT_MEMBERS_CTORS_1ST = NO
 
 # If the SORT_GROUP_NAMES tag is set to YES then doxygen will sort the 
 # hierarchy of group names into alphabetical order. If set to NO (the default) 
@@ -1395,13 +1395,13 @@ XML_PROGRAMLISTING     = YES
 # configuration options for the AutoGen Definitions output
 #---------------------------------------------------------------------------
 
-# If the GENERATE_AUTOCRYP_DEF tag is set to YES Doxygen will 
+# If the GENERATE_AUTOGEN_DEF tag is set to YES Doxygen will 
 # generate an AutoGen Definitions (see autogen.sf.net) file 
 # that captures the structure of the code including all 
 # documentation. Note that this feature is still experimental 
 # and incomplete at the moment.
 
-GENERATE_AUTOCRYP_DEF   = NO
+GENERATE_AUTOGEN_DEF   = NO
 
 #---------------------------------------------------------------------------
 # configuration options related to the Perl module output
@@ -1560,11 +1560,11 @@ CLASS_DIAGRAMS         = YES
 # You can define message sequence charts within doxygen comments using the \msc 
 # command. Doxygen will then run the mscgen tool (see 
 # http://www.mcternan.me.uk/mscgen/) to produce the chart and insert it in the 
-# documentation. The MSCCRYP_PATH tag allows you to specify the directory where 
+# documentation. The MSCGEN_PATH tag allows you to specify the directory where 
 # the mscgen tool resides. If left empty the tool is assumed to be found in the 
 # default search path.
 
-MSCCRYP_PATH            = 
+MSCGEN_PATH            = 
 
 # If set to YES, the inheritance and collaboration graphs will hide 
 # inheritance and usage relations if the target is undocumented 

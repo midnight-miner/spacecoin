@@ -61,7 +61,7 @@ void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
     entry.push_back(Pair("txid", wtx.GetHash().GetHex()));
     entry.push_back(Pair("time", (int64_t)wtx.GetTxTime()));
     entry.push_back(Pair("timereceived", (int64_t)wtx.nTimeReceived));
-    
+
     BOOST_FOREACH(const PAIRTYPE(string,string)& item, wtx.mapValue)
         entry.push_back(Pair(item.first, item.second));
 }
@@ -309,7 +309,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
     // Is wallet locked?
     if (pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
-    
+
     // Is stealth address?
     if (params[0].get_str().length() > 75
         && IsStealthAddress(params[0].get_str()))
@@ -322,10 +322,10 @@ Value sendtoaddress(const Array& params, bool fHelp)
 
     // Amount
     int64_t nAmount = AmountFromValue(params[1]);
-    
+
     CWalletTx wtx;
     std::string sNarr;
-    
+
     // Wallet comments
     if (params.size() > 2 && params[2].type() != null_type && !params[2].get_str().empty())
         wtx.mapValue["comment"] = params[2].get_str();
@@ -695,14 +695,14 @@ Value sendfrom(const Array& params, bool fHelp)
 
     CWalletTx wtx;
     wtx.strFromAccount = strAccount;
-    
+
     std::string sNarr;
     if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
         sNarr = params[4].get_str();
-    
+
     if (sNarr.length() > 24)
         throw runtime_error("Note must be 24 characters or less.");
-    
+
     if (params.size() > 5 && params[5].type() != null_type && !params[5].get_str().empty())
         wtx.mapValue["comment"] = params[5].get_str();
     if (params.size() > 6 && params[6].type() != null_type && !params[6].get_str().empty())
@@ -1620,7 +1620,7 @@ public:
             obj.push_back(Pair("sigsrequired", nRequired));
         return obj;
     }
-    
+
     Object operator()(const CStealthAddress &stxAddr) const {
         Object obj;
         obj.push_back(Pair("todo", true));
@@ -1804,7 +1804,7 @@ Value makekeypair(const Array& params, bool fHelp)
     string strPrefix = "";
     if (params.size() > 0)
         strPrefix = params[0].get_str();
- 
+
     CKey key;
     key.MakeNewKey(false);
 
@@ -1823,22 +1823,22 @@ Value getnewstealthaddress(const Array& params, bool fHelp)
         throw runtime_error(
             "getnewstealthaddress [label]\n"
             "Returns a new SpaceCoin stealth address for receiving payments anonymously.  ");
-    
+
     if (pwalletMain->IsLocked())
         throw runtime_error("Failed: Wallet must be unlocked.");
-    
+
     std::string sLabel;
     if (params.size() > 0)
         sLabel = params[0].get_str();
-    
+
     CStealthAddress sxAddr;
     std::string sError;
     if (!pwalletMain->NewStealthAddress(sError, sLabel, sxAddr))
         throw runtime_error(std::string("Could get new stealth address: ") + sError);
-    
+
     if (!pwalletMain->AddStealthAddress(sxAddr))
         throw runtime_error("Could not save to wallet.");
-    
+
     return sxAddr.Encoded();
 }
 
@@ -1848,43 +1848,43 @@ Value liststealthaddresses(const Array& params, bool fHelp)
         throw runtime_error(
             "liststealthaddresses [show_secrets=0]\n"
             "List owned stealth addresses.");
-    
+
     bool fShowSecrets = false;
-    
+
     if (params.size() > 0)
     {
         std::string str = params[0].get_str();
-        
+
         if (str == "0" || str == "n" || str == "no" || str == "-" || str == "false")
             fShowSecrets = false;
         else
             fShowSecrets = true;
     };
-    
+
     if (fShowSecrets)
     {
         if (pwalletMain->IsLocked())
             throw runtime_error("Failed: Wallet must be unlocked.");
     };
-    
+
     Array result;
-    
+
     std::set<CStealthAddress>::iterator it;
     for (it = pwalletMain->stealthAddresses.begin(); it != pwalletMain->stealthAddresses.end(); ++it)
     {
         if (it->scan_secret.size() < 1)
             continue; // stealth address is not owned
-        
+
         Object obj;
 
         if (fShowSecrets)
-        { 
+        {
             obj.push_back(Pair("label", it->label));
             obj.push_back(Pair("address", it->Encoded()));
             obj.push_back(Pair("scan-secret", HexStr(it->scan_secret.begin(), it->scan_secret.end())));
             obj.push_back(Pair("spend-secret", HexStr(it->spend_secret.begin(), it->spend_secret.end())));
             result.push_back(obj);
-        } 
+        }
         else
         {
             obj.push_back(Pair("label", it->label));
@@ -1892,7 +1892,7 @@ Value liststealthaddresses(const Array& params, bool fHelp)
             result.push_back(obj);
         };
     };
-    
+
     return result;
 }
 
@@ -1902,20 +1902,20 @@ Value importstealthaddress(const Array& params, bool fHelp)
         throw runtime_error(
             "importstealthaddress <scan_secret> <spend_secret> [label]\n"
             "Import an owned stealth addresses.");
-    
+
     std::string sScanSecret  = params[0].get_str();
     std::string sSpendSecret = params[1].get_str();
     std::string sLabel;
-    
-    
+
+
     if (params.size() > 2)
     {
         sLabel = params[2].get_str();
     };
-    
+
     std::vector<uint8_t> vchScanSecret;
     std::vector<uint8_t> vchSpendSecret;
-    
+
     if (IsHex(sScanSecret))
     {
         vchScanSecret = ParseHex(sScanSecret);
@@ -1924,7 +1924,7 @@ Value importstealthaddress(const Array& params, bool fHelp)
         if (!DecodeBase58(sScanSecret, vchScanSecret))
             throw runtime_error("Could not decode scan secret as hex or base58.");
     };
-    
+
     if (IsHex(sSpendSecret))
     {
         vchSpendSecret = ParseHex(sSpendSecret);
@@ -1933,35 +1933,35 @@ Value importstealthaddress(const Array& params, bool fHelp)
         if (!DecodeBase58(sSpendSecret, vchSpendSecret))
             throw runtime_error("Could not decode spend secret as hex or base58.");
     };
-    
+
     if (vchScanSecret.size() != 32)
         throw runtime_error("Scan secret is not 32 bytes.");
     if (vchSpendSecret.size() != 32)
         throw runtime_error("Spend secret is not 32 bytes.");
-    
-    
+
+
     ec_secret scan_secret;
     ec_secret spend_secret;
-    
+
     memcpy(&scan_secret.e[0], &vchScanSecret[0], 32);
     memcpy(&spend_secret.e[0], &vchSpendSecret[0], 32);
-    
+
     ec_point scan_pubkey, spend_pubkey;
     if (SecretToPublicKey(scan_secret, scan_pubkey) != 0)
         throw runtime_error("Could not get scan public key.");
-    
+
     if (SecretToPublicKey(spend_secret, spend_pubkey) != 0)
         throw runtime_error("Could not get spend public key.");
-    
-    
+
+
     CStealthAddress sxAddr;
     sxAddr.label = sLabel;
     sxAddr.scan_pubkey = scan_pubkey;
     sxAddr.spend_pubkey = spend_pubkey;
-    
+
     sxAddr.scan_secret = vchScanSecret;
     sxAddr.spend_secret = vchSpendSecret;
-    
+
     Object result;
     bool fFound = false;
     // -- find if address already exists
@@ -1979,12 +1979,12 @@ Value importstealthaddress(const Array& params, bool fHelp)
                 fFound = true; // update stealth address with secrets
                 break;
             };
-            
+
             result.push_back(Pair("result", "Import failed - stealth address exists."));
             return result;
         };
     };
-    
+
     if (fFound)
     {
         result.push_back(Pair("result", "Success, updated " + sxAddr.Encoded()));

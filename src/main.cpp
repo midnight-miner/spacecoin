@@ -2457,7 +2457,33 @@ bool LoadBlockIndex(bool fAllowNew)
             return false;
 
         // Genesis block
-         
+
+/* 
+{
+  "hash": "00000beb628cb003ee6fa0145731dff34960e01cd9ce877b23ce1395dfb93088",
+  "confirmations": 472362,
+  "size": 185,
+  "height": 0,
+  "version": 1,
+  "merkleroot": "caaefdf8ae4552305335a095069a3d90bcb06b576bd9df45a5e77bbabfe7cff3",
+  "mint": 0,
+  "time": 1440969000,
+  "nonce": 993793,
+  "bits": "1e0fffff",
+  "difficulty": 0.00024414,
+  "blocktrust": "100001",
+  "chaintrust": "100001",
+  "nextblockhash": "00000694884a0afa3bc62634671be1f9dbf1b0c23b8fbc37407ffd06dea09ab1",
+  "flags": "proof-of-work stake-modifier",
+  "proofhash": "00000beb628cb003ee6fa0145731dff34960e01cd9ce877b23ce1395dfb93088",
+  "entropybit": 0,
+  "modifier": "0000000000000000",
+  "tx": [
+    "caaefdf8ae4552305335a095069a3d90bcb06b576bd9df45a5e77bbabfe7cff3"
+  ]
+}
+*/
+
         const char* pszTimestamp = "SpaceCoin Launch - Epicness For All";
         CTransaction txNew;
         txNew.nTime = 1440969000;
