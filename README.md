@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.org/midnight-miner/spacecoin.svg?branch=master)](https://travis-ci.org/midnight-miner/spacecoin)
+
 SpaceCoin development tree
 
 SpaceCoin is a PoW/PoS-based cryptocurrency.
