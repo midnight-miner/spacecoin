@@ -729,7 +729,6 @@ border-top: 3px solid rgb(215,215,215);
            </item>
           </layout>
           <zorder>listTransactions</zorder>
-          <zorder></zorder>
          </widget>
         </item>
        </layout>
